@@ -1,32 +1,135 @@
-# Object Orientation
 
-## Overview
+ # Reading Data with Pandas
 
-We'll introduce the concept of Object Oriented Programming (OOP)
+## Introduction
 
-## Object-Oriented Programming (OOP)
+Another library that is integral to data science is Pandas. Have you ever looked at a table of data, maybe excel, and thought, "I wish I had that in a format I could use in Python!"? We'll you're in luck because that is exactly the type of problem that this new library can solve for us. In this lesson, we will introduce the ways in which Pandas is used and why it is such a powerful tool. We'll also show exactly how to get started using Pandas and common operations. 
 
-*An object-oriented approach to application development makes programs more intuitive to design, faster to develop, more amenable to modification, and easier to understand.*  
-—[*Object-Oriented Programming with Objective-C*][apple_oop_guide_intro], Apple Inc.
+## Objectives
+* Importing Pandas
+* Creating a DataFrame
+* Reading a CSV
 
-[apple_oop_guide_intro]: https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/OOP_ObjC/Introduction/Introduction.html#//apple_ref/doc/uid/TP40005149-CH1-SW2
+## Importing Pandas
 
-It's natural to wonder, "how can a string of ones and zeroes be referred to as an 'object'?" The use of the word "object" is an abstraction of thought. An "object" in code has no more physical form than does a word in any human language. Sure, words have physical representations: speaking a word causes air to vibrate in a sound wave, ink on a page can be shaped into symbols that represent the word, a meaning can be pointed at or mimed out; but none of these are the word itself. Human language is a system of abstraction: it communicates the *idea* of a thing, but not the thing itself.
+The first thing we do with all librarys is import them into our code. And we know that our code is usually following some kind of pattern or convention, right? Well, Pandas is no exception to that. Just as we alias the NumPy library import `as np`, we alias Pandas `as pd`. Let's check it out.
 
-![](https://upload.wikimedia.org/wikipedia/en/b/b9/MagrittePipe.jpg)  
-Translation: "This is not a pipe." - [*The Treachery of Images*](https://en.wikipedia.org/wiki/The_Treachery_of_Images), [René Magritte](https://en.wikipedia.org/wiki/Ren%C3%A9_Magritte), 1927  
 
-This image of a pipe is no more a pipe than the word "pipe" is a pipe; in the same way, a code object named `pipe` is not a pipe, but only another form of representing a pipe.
+```python
+import pandas as pd
+print(pd)
+```
 
->As humans, we’re constantly faced with myriad facts and impressions that we must make sense of. To do so, we must abstract underlying structure away from surface details and discover the fundamental relations at work. Abstractions reveal causes and effects, expose patterns and frameworks, and separate what’s important from what’s not. Object orientation provides an abstraction of the data on which you operate; moreover, it provides a concrete grouping between the data and the operations you can perform with the data—in effect giving the data behavior.  
->—[*Object-Oriented Programming with Objective-C*](https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/OOP_ObjC/Articles/ooOOP.html#//apple_ref/doc/uid/TP40005149-CH8-SW3), Apple Inc.
+    <module 'pandas' from '/usr/local/lib/python3.6/site-packages/pandas/__init__.py'>
 
-A code object representing a water pipe (instead of a smoking pipe) might contain values for `length`, `diameter`, `material`, and `manufacturer`. The bundling of these individual pieces of information together begins to form a larger whole.
 
-Object-Oriented Programming, however, does more than just bundle up individual pieces of data that represent a "thing" — it also bundles customized functions that can be performed *on* that data. These are called **methods**: behaviors that an object performs upon its internal data and even upon other code objects.
+Great! we have Pandas imported and aliased, so that, now we can refer to the Pandas module as simply `pd`.
 
-An object in code is a thing with all the data and all the logic required to complete a task. Objects are models and metaphors for the problems we solve in code.
+# Creating a DataFrame
 
-Object-oriented programming was born from the trend of making digital lives reflect our real lives. In the 1970's, [Adele Goldberg](https://en.wikipedia.org/wiki/Adele_Goldberg_%28computer_scientist%29) and [Alan Kay](https://en.wikipedia.org/wiki/Alan_Kay) developed an object-oriented language at Xerox PARC called SmallTalk, which was used in the first personal computer.
+A DataFrame is a new data type for us. So, in order to understand what a DataFrame is, it is important to have a visualization of the object. Below, we are taking some lists (some multi-dimensional), and using it to create a Pandas DataFrame.
 
-Python comes with a few types of Objects to get us started, things like `int` for Integer, `str` for String, `list` for List, etc. We call these base types of Objects "Primitives." But what if we wanted to create a new type in our programming universe, a new kind of object for our code? That's what the `class` keyword and object orientation allows us to do.
+Essentially, a DataFrame is an organized, formatted object containing rows and columns with data contained in the cells between the rows and colums. You can think of it as almost the Python equivalent of looking at a matrix in a CSV or excel file.
+
+First, let's see the DataFrame without any real values populated. We will create the DataFrame with just columns and Rows.
+
+> The syntax for creating a DataFrame is:
+
+
+```python
+pd.DataFrame(DATA, COLUMNS, INDEX(optional))
+# without an index, the left column will just auto index using integers (i.e. 1, 2, 3, etc.)
+
+OR
+
+pd.DataFrame(data=['Python', 'Pandas', 'Flatiron School'], 
+             columns=['Coolest Programming Lang','Neatest Python Library','Best Programming School']
+            )
+```
+
+
+```python
+days_of_class = ['day1', 'day2', 'day3', 'day4']
+attendance = ['absent', 'present']
+empty_students = []
+pd.DataFrame(data=empty_students, columns=attendance, index=days_of_class)
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>absent</th>
+      <th>present</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>day1</th>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>day2</th>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>day3</th>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>day4</th>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+Now, if we add in a list of lists such as 4 lists containing 1 student who was absent, and 1 student who was present all inside another list (i.e. `[ [1,2], [1,2], [1,2], [1,2] ]`), we can provide the data we need for our DataFrame! 
+
+Don't think too much about the multidimensional list. We will see those again in the future. But for now, focus on DataFrames! Below, we are creating the list of lists that will be used to show absent and present students for class.
+
+
+```python
+present_stds = ['Anna', 'Billy', 'Meghan', 'George']
+absent_stds = ['Hunter', 'Francine', 'Gail', 'Tucker']
+students = [[absent_stds[0], present_stds[0]], [absent_stds[1], present_stds[1]], [absent_stds[2], present_stds[2]], [absent_stds[3], present_stds[3]]]
+
+pd.DataFrame(students, index=days_of_class, columns=attendance)
+```
+
+Now, let's see what we were talking about when we said our DataFrame would **auto index**... Well, our DataFrame will always need an index (or line number) and without the days of the week as our indexes, our DataFrame will populate the index with a list of integers for the number of rows of data in the DataFrame. Let's look at the same example as we have from above, but this time without the index.
+
+
+```python
+pd.DataFrame(students, columns=attendance)
+```
+
+Now, it looks like we have a *day **0***, but that's alright. The important thing here is to note that without data for your index, Pandas will simply use integers to denote rows. In fact, if we remove the data for the columns, Pandas will also use integers to create column titles. 
+
+
+```python
+pd.DataFrame(students)
+```
