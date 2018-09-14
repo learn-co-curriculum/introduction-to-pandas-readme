@@ -595,8 +595,14 @@ attendance_dict = csv.to_dict()
 print(attendance_dict)
 ```
 
-    {'NAME': {0: 'Jeffrey', 1: 'Michelle', 2: 'Carl', 3: 'Chris', 4: 'Kris', 5: 'David', 6: 'Hank', 7: 'Gregory', 8: 'Anna', 9: 'Jordan', 10: 'Kayla', 11: 'Tucker', 12: 'Pattie', 13: 'Morgan', 14: 'Max', 15: 'Rick', 16: 'Stephanie'}, 'Day 1': {0: 0, 1: 0, 2: 1, 3: 1, 4: 0, 5: 1, 6: 1, 7: 1, 8: 0, 9: 1, 10: 0, 11: 1, 12: 1, 13: 1, 14: 0, 15: 1, 16: 0}, 'Day 2': {0: 1, 1: 1, 2: 1, 3: 0, 4: 0, 5: 1, 6: 0, 7: 1, 8: 0, 9: 0, 10: 1, 11: 0, 12: 0, 13: 1, 14: 0, 15: 1, 16: 0}, 'Day 3': {0: 1, 1: 0, 2: 0, 3: 1, 4: 1, 5: 1, 6: 0, 7: 0, 8: 1, 9: 0, 10: 1, 11: 0, 12: 1, 13: 1, 14: 0, 15: 0, 16: 0}, 'Day 4': {0: 0, 1: 0, 2: 1, 3: 0, 4: 1, 5: 0, 6: 1, 7: 1, 8: 0, 9: 1, 10: 0, 11: 0, 12: 0, 13: 1, 14: 0, 15: 0, 16: 1}, 'Day 5': {0: 0, 1: 1, 2: 0, 3: 0, 4: 0, 5: 1, 6: 0, 7: 1, 8: 0, 9: 0, 10: 1, 11: 1, 12: 1, 13: 1, 14: 1, 15: 0, 16: 1}, 'Day 6': {0: 0, 1: 0, 2: 1, 3: 0, 4: 1, 5: 1, 6: 1, 7: 0, 8: 1, 9: 1, 10: 1, 11: 0, 12: 1, 13: 1, 14: 1, 15: 0, 16: 1}, 'Day 7': {0: 1, 1: 0, 2: 1, 3: 0, 4: 0, 5: 1, 6: 0, 7: 1, 8: 0, 9: 1, 10: 1, 11: 0, 12: 1, 13: 1, 14: 0, 15: 0, 16: 1}, 'Day 8': {0: 1, 1: 0, 2: 0, 3: 1, 4: 0, 5: 1, 6: 0, 7: 0, 8: 1, 9: 1, 10: 1, 11: 1, 12: 1, 13: 1, 14: 1, 15: 1, 16: 0}, 'Day 9': {0: 0, 1: 0, 2: 1, 3: 1, 4: 0, 5: 1, 6: 0, 7: 1, 8: 1, 9: 1, 10: 0, 11: 1, 12: 1, 13: 1, 14: 1, 15: 1, 16: 0}, 'Day 10': {0: 1, 1: 1, 2: 1, 3: 0, 4: 1, 5: 1, 6: 0, 7: 1, 8: 1, 9: 0, 10: 1, 11: 0, 12: 1, 13: 1, 14: 1, 15: 1, 16: 1}}
+That is definitely a dictionary, but it looks a little confusing. We essentially have a the data from our DataFrame but the way it is formatted, each column is a key, which then points to another dictionary object with the values for that column, with each key being the row that data is on. 
+To make this data a but more readable, and easy to work with, we will pass in the `'records'` argument to the `.to_dict()` method, which will then give us a list of dictionary objects, where the keys are the column names and point to the data for each row of data making it as if each row is its own discrete object.
 
+
+```python
+attendance_dict = csv.to_dict('records')
+print(attendance_dict)
+```
 
 > **Note:** A 0 stands for 'absent' and a 1 stands for 'present' in the attendance data above.
 
